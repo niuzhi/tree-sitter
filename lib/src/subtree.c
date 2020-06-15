@@ -387,7 +387,7 @@ void ts_subtree_set_children(
     self.ptr->dynamic_precedence += ts_subtree_dynamic_precedence(child);
     self.ptr->node_count += ts_subtree_node_count(child);
 
-    if (alias_sequence && alias_sequence[non_extra_index] != 0 && !ts_subtree_extra(child)) {
+    if (!ts_subtree_extra(child) && alias_sequence[non_extra_index] != 0) {
       self.ptr->visible_child_count++;
       if (ts_language_symbol_metadata(language, alias_sequence[non_extra_index]).named) {
         self.ptr->named_child_count++;
@@ -861,9 +861,7 @@ static size_t ts_subtree__write_to_string(
           0, false, NULL
         );
       } else {
-        TSSymbol alias_symbol = alias_sequence
-          ? alias_sequence[structural_child_index]
-          : 0;
+        TSSymbol alias_symbol = alias_sequence[structural_child_index];
         bool alias_is_named = alias_symbol
           ? ts_language_symbol_metadata(language, alias_symbol).named
           : false;

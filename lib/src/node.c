@@ -82,9 +82,7 @@ static inline bool ts_node_child_iterator_next(
   const Subtree *child = &self->parent.ptr->children[self->child_index];
   TSSymbol alias_symbol = 0;
   if (!ts_subtree_extra(*child)) {
-    if (self->alias_sequence) {
-      alias_symbol = self->alias_sequence[self->structural_child_index];
-    }
+    alias_symbol = self->alias_sequence[self->structural_child_index];
     self->structural_child_index++;
   }
   if (self->child_index > 0) {
